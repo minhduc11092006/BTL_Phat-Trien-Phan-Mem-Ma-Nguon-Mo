@@ -493,28 +493,42 @@ $saved_queries = get_saved_queries($user['id']);
     <!-- ============================================================= -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
 
-        <!-- Banner Tiêu Đề & Nút Hành Động -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
-            <div>
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/80 text-amber-800 text-xs font-bold tracking-wide uppercase mb-2">
+        <!-- Banner Tiêu Đề & Nút Hành Động (Gom chung 1 div bố cục 2 tầng chuẩn mực) -->
+        <div class="bg-gradient-to-br from-blue-100 via-blue-50 to-white rounded-2xl p-6 sm:p-7 border border-blue-200/60 space-y-4">
+            
+            <!-- Hàng trên: Chip danh mục (Trái) & Badge Số lượng (Phải) -->
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/80 text-amber-800 text-xs font-bold tracking-wide uppercase">
                     <i class="bi bi-star-fill text-amber-500"></i>
                     <span>Personal Bookmarks</span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2.5">
-                    <span>Truy Vấn Mẫu Đã Lưu</span>
-                </h1>
-                <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
-                    Lưu trữ các lộ trình và bộ lọc thường xuyên tra cứu; dễ dàng chạy lại chỉ với 1 cú click khi hệ thống cập nhật phiên bản lịch trình mới.
-                </p>
+
+                <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 shadow-xs">
+                    <i class="bi bi-collection-fill text-brand-600"></i>
+                    <span>Đang lưu: <strong><?php echo count($saved_queries); ?></strong> truy vấn mẫu</span>
+                </div>
             </div>
 
-            <!-- Nút Tra Cứu & Lưu Mới -->
-            <div class="shrink-0">
-                <a href="next_trip.php" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-brand-500/25 hover:shadow-lg transition-all active:scale-[0.98] inline-flex items-center gap-2">
-                    <i class="bi bi-plus-circle text-base"></i>
-                    <span>Tra Cứu &amp; Lưu Truy Vấn Mới</span>
-                </a>
+            <!-- Hàng chính: Tiêu đề + Phụ đề (Trái) & Nút Tra Cứu & Lưu Mới (Phải) -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+                <div class="space-y-1">
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2.5">
+                        <span>Truy Vấn Mẫu Đã Lưu</span>
+                    </h1>
+                    <p class="text-slate-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
+                        Lưu trữ các lộ trình và bộ lọc thường xuyên tra cứu; dễ dàng chạy lại chỉ với 1 cú click khi hệ thống cập nhật phiên bản lịch trình mới.
+                    </p>
+                </div>
+
+                <!-- Nút Tra Cứu & Lưu Mới -->
+                <div class="shrink-0">
+                    <a href="next_trip.php" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-brand-500/25 hover:shadow-lg transition-all active:scale-[0.98] inline-flex items-center gap-2">
+                        <i class="bi bi-plus-circle text-base"></i>
+                        <span>Tra Cứu &amp; Lưu Truy Vấn Mới</span>
+                    </a>
+                </div>
             </div>
+
         </div>
 
         <!-- Flash Alerts: Thông báo kết quả thao tác -->

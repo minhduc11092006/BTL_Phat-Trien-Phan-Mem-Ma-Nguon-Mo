@@ -511,38 +511,62 @@ if ($active_version) {
     <!-- ============================================================= -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
 
-        <!-- Banner Tiêu Đề & Trạng Thái Phiên Bản Lịch Trình -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
-            <div>
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200/80 text-brand-700 text-xs font-bold tracking-wide uppercase mb-2">
+        <!-- Banner Tiêu Đề, Trạng Thái & Nút Hành Động (Gom chung 1 div bố cục 2 tầng chuẩn mực) -->
+        <div class="bg-gradient-to-br from-blue-100 via-blue-50 to-white rounded-2xl p-6 sm:p-7 border border-blue-200/60 space-y-4">
+            
+            <!-- Hàng trên: Chip danh mục (Trái) & Badge Phiên bản lịch active (Phải) -->
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200/80 text-brand-700 text-xs font-bold tracking-wide uppercase">
                     <i class="bi bi-lightning-charge-fill text-brand-500"></i>
                     <span>Real-time Schedule Lookup</span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2.5">
-                    <span>Tìm Chuyến Kế Tiếp Tại Trạm</span>
-                </h1>
-                <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
-                    Xử lý tự động theo <strong>ngày hoạt động</strong>, <strong>lịch ngoại lệ (thêm / hủy dịch vụ)</strong> và <strong>giờ chạy xuyên đêm (> 24:00:00)</strong> chuẩn GTFS.
-                </p>
+
+                <!-- Badge Phiên Bản Lịch Đang Kích Hoạt -->
+                <div class="shrink-0">
+                    <?php if ($active_version): ?>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-emerald-200/80 shadow-xs text-xs font-semibold text-emerald-800">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <span>Phiên bản active: <strong><?php echo htmlspecialchars($active_version['version_name']); ?></strong></span>
+                        </div>
+                    <?php else: ?>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-xs font-semibold text-amber-800">
+                            <i class="bi bi-exclamation-triangle-fill text-amber-500"></i>
+                            <span>Chưa kích hoạt phiên bản GTFS nào</span>
+                        </div>
+                    <?php endif; ?>
+                </div>
             </div>
 
-            <!-- Badge Phiên Bản Lịch Đang Kích Hoạt -->
-            <div class="shrink-0">
-                <?php if ($active_version): ?>
-                    <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white border border-emerald-200/80 shadow-xs text-xs font-semibold text-emerald-800">
-                        <span class="relative flex h-2.5 w-2.5">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                        </span>
-                        <span>Phiên bản active: <strong><?php echo htmlspecialchars($active_version['version_name']); ?></strong></span>
-                    </div>
-                <?php else: ?>
-                    <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-amber-50 border border-amber-200 text-xs font-semibold text-amber-800">
-                        <i class="bi bi-exclamation-triangle-fill text-amber-500"></i>
-                        <span>Chưa kích hoạt phiên bản GTFS nào</span>
-                    </div>
-                <?php endif; ?>
+            <!-- Hàng chính: Tiêu đề + Phụ đề (Trái) & Nút Xem Truy Vấn Đã Lưu (Phải) -->
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-1">
+                <div class="space-y-1">
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2.5">
+                        <span>Tìm Chuyến Kế Tiếp Tại Trạm</span>
+                    </h1>
+                    <p class="text-slate-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
+                        Xử lý tự động theo <strong>ngày hoạt động</strong>, <strong>lịch ngoại lệ (thêm / hủy dịch vụ)</strong> và <strong>giờ chạy xuyên đêm (&gt; 24:00:00)</strong> chuẩn GTFS.
+                    </p>
+                </div>
+
+                <!-- Nút Hành Động Chuyển Sang Trang Truy Vấn Đã Lưu -->
+                <div class="shrink-0 flex items-center gap-2">
+                    <?php if ($user): ?>
+                        <a href="saved_queries.php" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-brand-500/25 hover:shadow-lg transition-all active:scale-[0.98] inline-flex items-center gap-2">
+                            <i class="bi bi-bookmark-star-fill text-amber-300 text-base"></i>
+                            <span>Xem Truy Vấn Đã Lưu</span>
+                        </a>
+                    <?php else: ?>
+                        <a href="../auth/login.php" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold transition inline-flex items-center gap-1.5 shadow-sm">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            <span>Đăng nhập để lưu</span>
+                        </a>
+                    <?php endif; ?>
+                </div>
             </div>
+
         </div>
 
         <!-- Flash Alerts: Thành công / Thất bại -->
